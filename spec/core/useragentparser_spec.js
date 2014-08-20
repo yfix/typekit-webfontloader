@@ -303,6 +303,27 @@ describe('UserAgentParser', function () {
         });
       });
 
+      it('should detect Chrome on CromeCast', function () {
+        expect(parse('Mozilla/5.0 (CrKey armv71 1.6.16664) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.0 Safari/537.36'))
+        .toMatchUserAgent({
+          name: 'Chrome',
+          parsedVersion: new Version(31, 0, 1650, 0),
+          version: '31.0.1650.0',
+          platform: 'CrKey',
+          parsedPlatformVersion: new Version(1, 6, 16664),
+          platformVersion: '1.6.16664',
+          engine: 'AppleWebKit',
+          parsedEngineVersion: new Version(537, 36),
+          engineVersion: '537.36',
+          documentMode: undefined,
+          browserInfo: {
+            hasWebFontSupport: true,
+            hasWebKitFallbackBug: false,
+            hasWebKitMetricsBug: false
+          }
+        });
+      });
+
       it('should detect Chrome on Android', function () {
         expect(parse('Mozilla/5.0 (Linux; U; Android 4.0.3; en-us; Nexus S Build/IML74K) AppleWebKit/535.7 (KHTML, like Gecko) CrMo/16.0.912.75 Mobile Safari/535.7'))
         .toMatchUserAgent({
@@ -629,6 +650,25 @@ describe('UserAgentParser', function () {
             hasWebKitMetricsBug: false
           }
         });
+
+        expect(parse('Mozilla/5.0 (Windows Phone 8.1; ARM; Trident/7.0; Touch; rv:11.0; IEMobile/11.0; NOKIA; id404) like Gecko'))
+        .toMatchUserAgent({
+          name: 'MSIE',
+          parsedVersion: new Version(11, 0),
+          version: '11.0',
+          platform: 'Windows Phone',
+          parsedPlatformVersion: new Version(8, 1),
+          platformVersion: '8.1',
+          engine: 'Trident',
+          parsedEngineVersion: new Version(7, 0),
+          engineVersion: '7.0',
+          documentMode: undefined,
+          browserInfo: {
+            hasWebFontSupport: true,
+            hasWebKitFallbackBug: false,
+            hasWebKitMetricsBug: false
+          }
+        });
       });
 
       it('should detect unsupported Internet Explorer on Windows Phone', function () {
@@ -920,6 +960,27 @@ describe('UserAgentParser', function () {
           browserInfo: {
             hasWebFontSupport: false,
             hasWebKitFallbackBug: true,
+            hasWebKitMetricsBug: false
+          }
+        });
+      });
+
+      it('should detect the PS4 browser', function () {
+        expect(parse('Mozilla/5.0 (PlayStation 4 1.70) AppleWebKit/536.26 (KHTML, like Gecko)'))
+        .toMatchUserAgent({
+          name: 'BuiltinBrowser',
+          parsedVersion: new Version(),
+          version: 'Unknown',
+          platform: 'Linux',
+          parsedPlatformVersion: new Version(),
+          platformVersion: 'Unknown',
+          engine: 'AppleWebKit',
+          parsedEngineVersion: new Version(536, 26),
+          engineVersion: '536.26',
+          documentMode: undefined,
+          browserInfo: {
+            hasWebFontSupport: true,
+            hasWebKitFallbackBug: false,
             hasWebKitMetricsBug: false
           }
         });
